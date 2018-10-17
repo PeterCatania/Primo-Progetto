@@ -34,34 +34,36 @@
                     <h2 class="title">Registrazione</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form id="form" method="POST">
                         <div class="form-row">
                             <div class="name">Nome*</div>
                             <div class="value">
                                 <div class="input-group">
                                     <input 
+                                        id="first_name"
                                         class="input--style-5" 
                                         type="text" 
-                                        name="name"
+                                        name="first_name"
                                         placeholder="Mario"
-                                        title="Deve contenere solo lettere e caratteri usati nei nomi"
-                                        pattern="/(^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]).{2,50}+$/u"
+                                        maxlength="50"
                                    required>
                                 </div>
+                                <h6 id="first_name_error" class="notify"></h6>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Cognome*</div>
+                            <div class="name" >Cognome*</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input 
+                                    <input
+                                        id="last_name"
                                         class="input--style-5" 
                                         type="text" 
-                                        name="surname"
+                                        name="last_name"
                                         placeholder="Rossi"
-                                        title="Deve contenere solo lettere e caratteri usati nei nomi"
-                                        pattern="/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u"
+                                        maxlength="50"
                                     required>
+                                    <h6 id="last_name_error" class="notify"></h6>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +71,8 @@
                             <div class="name">Data di nascita*</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input 
+                                    <input
+                                        name="birthday"
                                         class="input--style-5" 
                                         type="date" 
                                         name="birth_date"
@@ -83,9 +86,10 @@
                                 <div class="input-group">
                                     <input 
                                         class="input--style-5" 
-                                        type="number" 
+                                        type="text" 
                                         name="house_number"
                                         placeholder="33A"
+                                        maxlength="5"
                                     required>
                                 </div>
                             </div>
@@ -99,6 +103,7 @@
                                         type="text" 
                                         name="city"
                                         placeholder="Locarno"
+                                        maxlength="50"
                                     required>
                                 </div>
                             </div>
@@ -112,6 +117,7 @@
                                         type="text" 
                                         name="nap"
                                         placeholder="6600"
+                                        maxlength="4"
                                     required>
                                 </div>
                             </div>
@@ -124,7 +130,7 @@
                                         <div class="input-group-desc">
                                             <input 
                                                 class="input--style-5" 
-                                                type="text" 
+                                                type="tel" 
                                                 name="area_code"
                                                 placeholder="+41"
                                             >
@@ -135,7 +141,7 @@
                                         <div class="input-group-desc">
                                             <input 
                                                 class="input--style-5" 
-                                                type="text" 
+                                                type="tel"
                                                 name="phone"
                                                 placeholder="0780050088"
                                             >
@@ -154,6 +160,7 @@
                                         type="email" 
                                         name="email"
                                         placeholder="mario.rossi@comune.ch"
+                                        maxlength="50"
                                     >
                                 </div>
                             </div>
@@ -163,10 +170,10 @@
                             <div class="value">
                                 <div class="input-group">
                                     <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="subject" required>
+                                        <select id="gender" name="subject" required>
                                             <option disabled="disabled" selected="selected">Scegliere Sesso</option>
-                                            <option>M</option>
-                                            <option>F</option>
+                                            <option value="M">M</option>
+                                            <option value="F">F</option>
                                         </select>
                                         <div class="select-dropdown"></div>
                                     </div>
@@ -177,7 +184,11 @@
                             <div class="name">Hobby</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <textarea class="textarea--style-1" name="hobby"></textarea>
+                                    <textarea 
+                                    id="hobby"
+                                    class="textarea--style-1"
+                                    name="hobby"
+                                    maxlength="500"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -185,12 +196,28 @@
                             <div class="name">Professione</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <textarea class="textarea--style-1" name="professione"></textarea>
+                                    <textarea
+                                    id="position"
+                                    class="textarea--style-1" 
+                                    name="professione"
+                                    maxlength="500"
+                                    ></textarea>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
+                            <button  
+                                id="register" 
+                                class="btn btn--radius-2 btn--red" 
+                                type="submit">
+                                Registati
+                            </button>
+                            <button  
+                                id="empty"
+                                class="btn btn--radius-2 btn--red" 
+                                type="submit">
+                                Cancella
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -207,6 +234,9 @@
 
     <!-- Main JS-->
     <script src="js/global.js"></script>
+    <script src="js/Validators/validator.js"></script>
+    <script src="js/Validators/name_validator.js"></script>
+    <script src="js/registration.js"></script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
