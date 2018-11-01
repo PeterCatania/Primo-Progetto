@@ -10,7 +10,7 @@ class HouseNumberValidator extends Validator{
 	 */
     constructor(){
         super();
-		this.errorMessage = "deve contenere al massimo 3 cifre seguite da due lettere del alfabeto";
-        this.pattern = /^([1-9][0-9]{0,3}[a-z]{0,1})+([ ]*))$/i;
+		this.errorMessage = "deve contenere delle cifre, da 1 a 3, con al massimo una lettera del alfabeto alla fine";
+        this.pattern = /^([\d]{1}[\d]{0,2}(([\d]{1})|([a-z]?)))$/i;
     }
 }
