@@ -15,9 +15,9 @@ surname.setValidationMessage("Il cognome deve contenere solo lettere alfabetiche
 /**
  * Validator for the "Birthday" input.
  */
-let birthday = new Validator("#birthday");
-birthday.setRegexp(/^((3[01]|[12][0-9]|0?[1-9])\/(1[012]|0?[1-9])\/((?:19|20)\d{2})){0,10}$/);
-birthday.setValidationMessage("La data di nascita deve essere nel formato gg/mm/aaaa");
+let birthday = new DateValidator("#birthday");
+birthday.setRegexp(/^((3[01]{1}|[12]{1}[0-9]{1}|0[1-9]{1}).(1[012]{1}|0[1-9]{1}).((19|20)\d{2})){0,10}$/);
+birthday.setValidationMessage("Puoi avere massimo 100 anni o essere nato oggi");
 
 /**
  * Validator for the "Address" input.
@@ -41,7 +41,7 @@ city.setRegexp(/^(\s*[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõ�
 city.setValidationMessage("La città deve contenere solo lettere alfabetiche e punteggiatura adeguata");
 
 /**
- * Validator for the "City" input.
+ * Validator for the "NAP" input.
  */
 let nap = new Validator("#nap");
 nap.setRegexp(/^[\d]{4,5}$/);
@@ -51,7 +51,7 @@ nap.setValidationMessage("Il NAP deve solo contenere cifre, da 4 a 5");
  * Validator for the "Telephone" input.
  */
 let telephone = new Validator("#telephone");
-telephone.setRegexp(/^(((\+|00)\d{1,3})([ \.\-]?)((\(?0\)?)?)(\d{2})([ \.\-]?)(\d{3})([ \.\-]?)(\d{2})([ \.\-]?)(\d{2}))$/);
+telephone.setRegexp(/^(((\+|00)\d{1,3})([ \.\-]?)((\(0\)|0)?)(\d{2})([ \.\-]?)(\d{3})([ \.\-]?)(\d{2})([ \.\-]?)(\d{2}))$/);
 telephone.setValidationMessage("Il numero di telefono deve essere nel formato internazionale, contenente il prefisso");
 
 /**
@@ -65,7 +65,7 @@ email.setValidationMessage("L'Email deve solo contenere lette e caratteri specia
  * Validator for the "Hobby" input.
  */
 let hobby = new Validator("#hobby");
-hobby.setRegexp(/^(\s*[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž∂ð.,:;-_"'=*#%&+!?<>\(\)\{\}\[\]]+\s*){0,50}$/i);
+hobby.setRegexp(/^(\s*[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž∂ð.,:-_!?<>\(\)\{\}\[\]]+\s*){0,50}$/i);
 hobby.setValidationMessage("L'Hobby deve contenere solo lettere alfabetiche e punteggiatura adeguata");
 hobby.setRequired(false);
 
@@ -73,7 +73,7 @@ hobby.setRequired(false);
  * Validator for the "Profession" input.
  */
 let profession = new Validator("#profession");
-profession.setRegexp(/^(\s*[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž∂ð.,:;-_"'=*#%&+!?<>\(\)\{\}\[\]]+\s*){0,50}$/i);
+profession.setRegexp(/^(\s*[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž∂ð.,:-_!?<>\(\)\{\}\[\]]+\s*){0,50}$/i);
 profession.setValidationMessage("La professione deve contenere solo lettere alfabetiche e punteggiatura adeguata");
 profession.setRequired(false);
 
@@ -94,7 +94,7 @@ $('#surname').on("keyup change",function(){
 /**
  * Validate the inserted "Birthday" input.
  */
-$('#birthday').on("keyup change",function(){
+$('#birthday').on("change keyup ",function(){
     birthday.validate();
 });
 
@@ -148,19 +148,26 @@ $("#hobby").on("keyup change",function(){
 });
 
 /**
- * Validate the inserted "Email" input.
+ * Validate the inserted "Profession" input.
  */
 $('#profession').on("keyup change",function(){
     profession.validate();
 });
 
 /**
- * Triggered when the form is submitted,
- * if a input is invalid show the corresponding error message
+ * Set the chacked gender.
+ */
+function setGender(id){
+    $("#" + id).prop("checked",true);
+}
+
+/**
+ * If a input is invalid show the corresponding error message
  * and don't perform the form action,
  * otherwise the action is performed.
  */
 $('#form').submit(() => {
+    //show error message if their are invalid
     name.submitError();
     surname.submitError();
     birthday.submitError();
@@ -173,6 +180,7 @@ $('#form').submit(() => {
     hobby.submitError();
     profession.submitError();
 
+    //decide if is performable the form action
     if(
         name.isValid() &&
         surname.isValid() &&
@@ -190,16 +198,17 @@ $('#form').submit(() => {
     }else{
         return false
     }
-
 });
 
 /**
- * Triggered when the "Cancella" (id="empty") button is pressed,
- * delete all the added css for view the validity of the inputs,
- * and hide the corresponding error message,
- * setting the inputs empty.
+ * Clear all inputs values, reset their css
+ * and hide the corresponding error message.
  */
-$('#empty').click(() => {
+$('#empty').click(function(event){
+    //prevent the use of default variables
+    event.preventDefault();
+
+    //reset all inputs (css; value)
     name.reset();
     surname.reset();
     birthday.reset();
@@ -211,8 +220,7 @@ $('#empty').click(() => {
     email.reset();
     hobby.reset();
     profession.reset();
+
+    //Set the selected "Gender" as "M"
+    setGender("M");
 });
-
-
-
-

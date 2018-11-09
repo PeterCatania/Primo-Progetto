@@ -14,7 +14,7 @@ class Validator{
 		this.emptyMessage = "Perfavore riempire il campo, è obbligatorio";
 		this.regexp;
 		this.required = true;
-		this.empty = true;
+		this.empty = false;
 		this.insertErrorMessage();
 	}
 
@@ -104,7 +104,6 @@ class Validator{
 	 */
 	setEmptyMessage(message){
 		if(message && typeof(message) == typeof("")){
-			console.log("Error message: " + message);
 			this.emptyMessage = message;
 		}
 	}
@@ -160,7 +159,7 @@ class Validator{
 	* @return true if it's valid, else false
 	*/
 	isValid(){
-		if(this.isEmpty()){
+		if(!this.getValue()){
 			if(this.isRequired()){
 				return false;				
 			}else{
@@ -179,12 +178,9 @@ class Validator{
 			$(this.element).css('color', 'black');
 			if(this.isValid()){
 				this.hideErrorMessage();
-				console.log(this.element + " valid");
 			}else{
 				this.setErrorMessage(this.validationMessage);
 				this.insertErrorMessage();
-				console.log();
-				console.log(this.element + " invalid");
 			}
 			this.setEmpty(false);
 		}else{
@@ -192,7 +188,6 @@ class Validator{
 			this.setErrorMessage(this.emptyMessage);
 			this.insertErrorMessage();
 			this.setEmpty(true);
-			console.log(this.element + " empty");
 		}
 	}
 
@@ -251,10 +246,12 @@ class Validator{
 	}
 
 	/**
-	 * Reset the element at initiale state.
+	 * Clear the value in the element, 
+	 * and hide the error message.
 	 */
 	reset(){
 		if(!this.empty){
+			$(this.element).val("");
 			this.hideErrorMessage();
 			this.removeValidity();
 			this.setErrorMessage(this.emptyMassage);
